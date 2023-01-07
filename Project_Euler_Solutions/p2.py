@@ -8,6 +8,7 @@ By considering the terms in the Fibonacci sequence whose values do not
 exceed four million, find the sum of the even-valued terms.
 '''
 
+#Find nth fibonacci number
 def fibonacci(n):
     if n == 0:
         return 0
@@ -19,13 +20,16 @@ def fibonacci(n):
             a, b = b, a+b
         return b
 
-f=0
-solution=0
-counter=0
-while f<4000000:
-    f=fibonacci(counter)
-    if f%2==0:
-        solution+=f
-    counter+=1
+#Find the sum of even Fibonacci numbers below n
+def fibonacci_below(n):
+    f=0
+    solution=0
+    counter=0
+    while f<n:
+        f=fibonacci(counter)
+        if f%2==0:
+            solution+=f
+        counter+=1
+    return solution
 
-print(solution)
+print(fibonacci_below(4000000))
