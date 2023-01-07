@@ -11,6 +11,7 @@ def nth_prime(n):
     primes = [2]
     num = 3
     while len(primes) < n:
+        #loop else
         for p in primes:
             if num % p == 0:
                 break
