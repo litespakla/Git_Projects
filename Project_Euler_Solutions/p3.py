@@ -14,4 +14,4 @@ def largest_prime(x):
             i+=1
     return x
 
-print(largest_prime(600851475143))
+print(largest_prime(20))
