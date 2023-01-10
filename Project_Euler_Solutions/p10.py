@@ -32,7 +32,6 @@ def prime_sum2(n):
             # Mark as composite all the multiples of i
             for j in range(i * i, n + 1, i):
                 primes[j] = False
-
     #List of primes below n
     primes= [i for i in range(2, n + 1) if primes[i]]
     #Returns sum of elements of the list
