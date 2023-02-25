@@ -3,6 +3,7 @@ Reference functions for solving the problems
 '''
 
 import numpy as np
+from sympy import isprime
 
 #Greatest common divisor
 def gcd(a, b):
@@ -61,8 +62,11 @@ def get_subset_indices(lst):
             subsets.append(subsets[j] + [i])
     return subsets
 
-import timeit
-from sympy import isprime
-
-def function_2(n):
-    return isprime(n)
+#Find all divisors of n
+def find_divisors(n):
+    divisors = []
+    for i in range(1, int(n ** 0.5) + 1):
+        if n % i == 0:
+            divisors.append(i)
+            divisors.append(n // i)
+    return list(set(divisors))

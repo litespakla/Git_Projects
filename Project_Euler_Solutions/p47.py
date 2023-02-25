@@ -1,21 +1,18 @@
 '''
-It was proposed by Christian Goldbach that every odd composite number
-can be written as the sum of a prime and twice a square.
+The first two consecutive numbers to have two distinct prime factors are:
 
-9 = 7 + 2×1^2
-15 = 7 + 2×2^2
-21 = 3 + 2×3^2
-25 = 7 + 2×3^2
-27 = 19 + 2×2^2
-33 = 31 + 2×1^2
+14 = 2 × 7
+15 = 3 × 5
 
-It turns out that the conjecture was false.
+The first three consecutive numbers to have three distinct prime factors are:
 
-What is the smallest odd composite that cannot be written as the sum of
-a prime and twice a square?
+644 = 2² × 7 × 23
+645 = 3 × 5 × 43
+646 = 2 × 17 × 19.
+
+Find the first four consecutive integers to have four distinct prime factors each.
+What is the first of these numbers?
 '''
-
-import math
 
 #Check if number is prime
 def is_prime(n):
@@ -26,20 +23,24 @@ def is_prime(n):
             return False
     return True
 
-#First composite odd number
-x=9
+#Find all divisors of n
+def find_prime_divisors(n):
+    divisors = []
+    for i in range(1, int(n ** 0.5) + 1):
+        if n % i == 0:
+            divisors.append(i)
+            divisors.append(n // i)
+    return set([div for div in divisors if is_prime(div)])
 
-while True:
-    #If x is composite
-    if not is_prime(x):
-        #Calculate every possible x-2y^2
-        for i in range(int(math.sqrt(x))):
-            test=x-2*i**2
-            #if x-2y^2 is prime, the Goldbach condition is true
-            if is_prime(test):
-                break
-        #Otherwise x doesn't fulfill Goldbach condition
-        else:
-            print(x)
-            break
-    x+=2
+#Finds the first of n consecutive integers to have n different prime factors
+def consecutive_primes(n):
+    i=0
+    while True:
+        i+=1
+        if len(find_prime_divisors(i))!=n:
+            continue
+        elif all(len(find_prime_divisors(i+j))==n for j in range(1, n)):
+            #print(find_prime_divisors(i), i)
+            return i
+
+print(consecutive_primes(4))

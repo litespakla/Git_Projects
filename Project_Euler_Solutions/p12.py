@@ -29,6 +29,7 @@ def find_divisors(n):
             divisors.append(n // i)
     return list(set(divisors))
 
+#Gets first triangular number with more than div divisors
 def div_trig_n(div):
     i=1
     trig_n=1
