@@ -46,3 +46,23 @@ def is_prime(n):
         if n % i == 0:
             return False
     return True
+
+#Check if the binary form of a number is palindromic
+def is_palindromic_binary(n):
+    binary = bin(n)[2:]
+    return binary == binary[::-1]
+
+#Gets the indexes of all possible subset combinations
+def get_subset_indices(lst):
+    n = len(lst)
+    subsets = [[]]
+    for i in range(n):
+        for j in range(len(subsets)):
+            subsets.append(subsets[j] + [i])
+    return subsets
+
+import timeit
+from sympy import isprime
+
+def function_2(n):
+    return isprime(n)
