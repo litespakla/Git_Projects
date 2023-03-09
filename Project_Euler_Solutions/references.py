@@ -70,3 +70,14 @@ def find_divisors(n):
             divisors.append(i)
             divisors.append(n // i)
     return list(set(divisors))
+
+#Get a list of primes below n
+def get_primes_below_n(n):
+    primes = []
+    is_prime = [True] * n
+    for i in range(2, n):
+        if is_prime[i]:
+            primes.append(i)
+            for j in range(i * i, n, i):
+                is_prime[j] = False
+    return primes
