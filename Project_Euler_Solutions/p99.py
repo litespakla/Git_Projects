@@ -44,7 +44,7 @@ for line in file:
     n=biggest_exp(n, m)
 
     #if n changes, store ith line value in j
-    if m=n:
+    if m==n:
         j=i
     i+=1
 
