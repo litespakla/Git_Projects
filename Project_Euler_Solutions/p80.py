@@ -24,7 +24,7 @@ for i in range(int(n)+1):
     if i not in squares:
         j=Decimal(i)
         digits=math.trunc((j.sqrt())*10**decimals)
-        print(i, str(digits)[:100])
+        #print(i, str(digits)[:100])
         for s in str(digits)[:100]:
             count+=int(s)
 
