@@ -5,6 +5,10 @@ Reference functions for solving the problems
 import numpy as np
 from sympy import isprime
 
+# Function to check if a number is palindrome
+def is_palindrome(n):
+    return str(n) == str(n)[::-1]
+
 #Greatest common divisor
 def gcd(a, b):
     while b != 0:
@@ -15,13 +19,31 @@ def gcd(a, b):
 def scm(a, b):
     return int(a*b/gcd(a,b))
 
-#Returns smallest common multiple of first n numbers
-def common_multiple(n):
-    solution=1
-    for i in range(n):
-        print(solution, i+1)
-        solution=scm(solution, i+1)
-    return solution
+#Smallest common multiple of first n numbers
+def scm_first_n(n):
+    sol=1
+    #get scm of current number and i
+    for i in range(1, n+1):
+        sol=scm(sol, i)
+    return sol
+
+#Get prime divisors of n
+def get_prime_divisors(n):
+    prime_divisors = set()
+    # Check for number of 2s that divide n
+    while n % 2 == 0:
+        prime_divisors.add(2)
+        n //= 2
+    # n must be odd at this point, so a skip of 2 (i.e., 3, 5, 7, 9, ...) is fine
+    for i in range(3, int(n**0.5) + 1, 2):
+        # While i divides n, add i and divide n
+        while n % i == 0:
+            prime_divisors.add(i)
+            n //= i
+    # This condition is to check if n is a prime number greater than 2
+    if n > 2:
+        prime_divisors.add(n)
+    return prime_divisors
 
 #Finds nth prime
 def nth_prime(n):
@@ -38,6 +60,10 @@ def nth_prime(n):
             primes.append(num)
         num += 2
     return primes[-1]
+
+###################################################3
+
+
 
 #Check if number is prime
 def is_prime(n):
@@ -81,21 +107,4 @@ def get_primes_below_n(n):
             for j in range(i * i, n, i):
                 is_prime[j] = False
     return primes
-
-#Get prime divisors of n
-def get_prime_divisors(n):
-    prime_divisors = set()
-    # Check for number of 2s that divide n
-    while n % 2 == 0:
-        prime_divisors.add(2)
-        n //= 2
-    # n must be odd at this point, so a skip of 2 (i.e., 3, 5, 7, 9, ...) is fine
-    for i in range(3, int(n**0.5) + 1, 2):
-        # While i divides n, add i and divide n
-        while n % i == 0:
-            prime_divisors.add(i)
-            n //= i
-    # This condition is to check if n is a prime number greater than 2
-    if n > 2:
-        prime_divisors.add(n)
-    return prime_divisors
+ 
