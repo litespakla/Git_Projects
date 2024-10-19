@@ -12,6 +12,7 @@ def nth_prime(n):
     primes = [2]
     num = 3
     while len(primes) < n:
+
         #loop else
         for p in primes:
             if num % p == 0:
@@ -19,6 +20,10 @@ def nth_prime(n):
         else:
             primes.append(num)
         num += 2
+
     return primes[-1]
 
-print(nth_prime(10001))
+#parameter
+n=10001
+
+print(nth_prime(n))

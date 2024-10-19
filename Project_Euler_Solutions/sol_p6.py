@@ -10,19 +10,18 @@ Find the difference between the sum of the squares of the first
 one hundred natural numbers and the square of the sum.
 '''
 
-#Square of the sum of first n numbers
-def square_sum(n):
-    return int(n*(n+1)/2)**2
+#Diference between sum of the squares and square of the sum of first n numbers 
+def dif_sum_squares(n):
+    sum_sq=0
+    sq_of_sum=(n*(n+1))//2
 
-#Sum of the squares of first n numbers
-def sum_square(n):
-    sol=0
+    #loop
     for i in range(n+1):
-        sol+=i**2
-    return sol
+        sum_sq+=i**2
 
-#Diference between sum of the squares and square of the sum of first n numbers
-def dif_square(n):
-    return square_sum(n)-sum_square(n)
+    return sq_of_sum**2-sum_sq
 
-print(dif_square(100))
+#parameter
+n=100
+
+print(dif_sum_squares(n))
