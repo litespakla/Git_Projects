@@ -74,8 +74,6 @@ def get_primes_below_n(n):
 
 ###################################################3
 
-
-
 #Check if number is prime
 def is_prime(n):
     if n < 2:

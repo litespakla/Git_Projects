@@ -29,13 +29,16 @@ def find_divisors(n):
             divisors.append(n // i)
     return list(set(divisors))
 
-#Gets first triangular number with more than div divisors
-def div_trig_n(div):
+#Get first triangular number to have over n divisors
+def triangular_divisors(n):
     i=1
-    trig_n=1
-    while len(find_divisors(trig_n))<div:
+    while True:
+        j=int(i*(i+1)/2)
+        if len(find_divisors(j))>n:
+            return j
         i+=1
-        trig_n=int(i*(i+1)/2)
-    return trig_n
 
-print(div_trig_n(500))
+#Parameters
+n=500
+
+print(triangular_divisors(n))

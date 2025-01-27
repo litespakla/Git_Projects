@@ -105,25 +105,37 @@ Work out the first ten digits of the sum of the following one-hundred 50-digit n
 
 #Prints first digits of sum of several numbers, and return sum result as list
 def sum_last(number, digits):
-    solution=[]
-    carry=0
-    i=1
-    while True:
-        try:
-            sum=0
-            for row in numbers.strip().split('\n'):
-                sum+=int(row[-i])
-            i+=1
-            sum+=carry
-            solution.insert(0, sum%10)
-            carry=(sum-(sum%10))//10
-        except:
-            solution.insert(0, carry)
-            break
-    print(*solution[0:digits-1], sep='')
-    return solution
+    numbers=[]
 
-numbers="""37107287533902102798797998220837590246510135740250
+    #length of the longest number
+    length=1
+
+    #Get every number as a list
+    for n in number:
+        k=list(n)
+        numbers.append([int(j) for j in k])
+        if len(n)>length:
+            length=len(n)
+
+    #Perform the sum
+    i=[0]*length
+    for n in numbers:
+        for j in range(len(n)-1, -1, -1):
+            i[j]+=n[j]
+
+            #Carry
+            if i[j]>9 and j!=0:
+                i[j]=i[j]%10
+                i[j-1]+=1    
+    sol=''
+    for d in i:
+        sol+=str(d)
+    print(sol)
+
+    return sol[:digits]
+
+numbers="""
+37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
 74324986199524741059474233309513058123726617309629
 91942213363574161572522430563301811072406154908250
@@ -225,4 +237,8 @@ numbers="""37107287533902102798797998220837590246510135740250
 53503534226472524250874054075591789781264330331690
 """
 
-print(sum_last(numbers, 10))
+#Parameters
+matrix=[row for row in numbers.strip().split('\n')]
+digits=10
+
+print(sum_last(matrix, digits))

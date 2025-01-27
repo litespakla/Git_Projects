@@ -29,47 +29,76 @@ What is the greatest product of four adjacent numbers in the same
 direction (up, down, left, right, or diagonally) in the 20×20 grid?
 '''
 
-import numpy as np
-
 #Finds n adjacent numbers of an array that have the greatest product
 def max_adjacent(array, n):
-    if len(array)<n:
-        return 0
-    else:
-        solution=0
-        digits=[]
-        for i in array:
-            digits.append(i)
-            if len(digits)>n:
-                digits.pop(0)
-            x=np.prod(digits)
-            if x>solution:
-                solution=x
-        return solution
+    result=1
+    test=1
+
+    #Iterate over the array
+    for i in range(0, len(array)):
+        test*=array[i]
+
+        #n-adjacent numbers
+        if (i+1)%n==0:
+            if test>result:
+                result=test
+            test=1
+
+    return result
 
 #Test all rows, columns and diagonals of matrix m to find the greatest product of n consecutive numbers
-def great_product(m, n):
-    solution=0
-    #test rows
-    for i in range(len(m)):
-        x=max_adjacent(m[i,:], n)
-        if x>solution:
-            solution=x
-    #test columns
-    for i in range(len(m[0])):
-        x=max_adjacent(m[:,i], n)
-        if x>solution:
-            solution=x
-    #test diagonals
-    for i in range(-len(m)+1, len(m[0])):
-        #mirror of matrix m
-        M = m[:, ::-1]
-        x1, x2=max_adjacent(np.diag(m, k=i), n), max_adjacent(np.diag(M, k=i), n)
-        if max(x1, x2)>solution:
-            solution=max(x1, x2)
-    return solution
+def max_sequence_matrix(mtx, n):
+    result=0
+    primary_diagonals = []
+    secondary_diagonals = []
 
-grid="""08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+    #Rows
+    for row in mtx:
+        test=max_adjacent(row, n)
+        if test>result:
+            result=test
+
+    #Columns
+    cols=[list(i) for i in zip(*mtx)]
+    for col in cols:
+        test=max_adjacent(col, n)
+        if test>result:
+            result=test
+
+    # Collect primary diagonals (top-left to bottom-right)
+    for d in range(-len(mtx) + 1, len(mtx[0])):
+        primary_diag = []
+        for i in range(len(mtx)):
+            j = i + d
+            if 0 <= j < len(mtx[0]):
+                primary_diag.append(matrix[i][j])
+        if primary_diag:
+            primary_diagonals.append(primary_diag)
+
+    for diag in primary_diagonals:
+        test=max_adjacent(diag, n)
+        if test>result:
+            result=test
+
+    # Collect secondary diagonals (top-right to bottom-left)
+    for d in range(len(mtx) + len(mtx[0]) - 1):
+        secondary_diag = []
+        for i in range(len(mtx)):
+            j = d - i
+            if 0 <= j < len(mtx[0]):
+                secondary_diag.append(matrix[i][j])
+        if secondary_diag:
+            secondary_diagonals.append(secondary_diag)
+    
+    for diag in secondary_diagonals:
+        test=max_adjacent(diag, n)
+        if test>result:
+            result=test
+
+    return result
+
+grid="""
+08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -88,10 +117,11 @@ grid="""08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
-01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
+01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
+"""
 
-#Turn grid into matrix
-matrix = [[int(x) for x in row.split()] for row in grid.strip().split('\n')]
-a=np.array(matrix)
+#Parameters
+matrix=[[int(element) for element in row.split()] for row in grid.strip().split('\n')]
+n=4
 
-print(great_product(a, 4))
+print(max_sequence_matrix(matrix, n))
