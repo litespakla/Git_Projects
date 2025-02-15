@@ -21,28 +21,19 @@ routes every second it would take over twenty billion years to
 check them all. There is an efficient algorithm to solve it. ;o)
 '''
 
-#receives a tringle as a list of rows and finds max from top to bottom
-def max_sum(triangle):
-    for i in range(1, len(triangle)):
-        for j in range(len(triangle[i])):
-            try:
-                triangle[i][j]+=max(triangle[i-1][j], triangle[i-1][j-1])
-            except:
-                triangle[i][j]+=triangle[i-1][j-1]
-    return max(triangle[-1])
+from sol_p18 import max_sum
 
 #Name of file that contains triangle
 name='p067_triangle.txt'
 
-#Opens file
-file= open(name, 'r')
+#matrix
+matrix=[]
 
-#Turn triangle in file into a list of rows (similar to problem 18)
-t=[]
-for line in file:
-    t.append([])
-    row=line.split()
-    for n in row:
-        t[-1].append(int(n))
+#Opens file and creates matrix
+with open(name, 'r') as file:
+    for line in file:
+        row=[int(element) for element in line.split()]
+        matrix.append(row)
+    
+print(max_sum(matrix))
 
-print(max_sum(t))

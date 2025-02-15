@@ -13,4 +13,7 @@ import math
 def ways(m, n):
     return math.factorial(m+n)//(math.factorial(m)*math.factorial(n))
 
-print(ways(20,20))
+#Parameters
+n=20
+
+print(ways(n,n))

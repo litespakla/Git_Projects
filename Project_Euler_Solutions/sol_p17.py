@@ -25,4 +25,7 @@ def count_letters(n):
         count+=sum([s.count(x) for x in 'abcdefghijklmnopqrstuvwxyz'])
     return count
 
-print(count_letters(1000))
+#Parameters
+n=1000
+
+print(count_letters(n))

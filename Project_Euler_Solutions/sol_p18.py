@@ -34,17 +34,29 @@ challenge with a triangle containing one-hundred rows; it cannot be
 solved by brute force, and requires a clever method! ;o)
 '''
 
-#receives a tringle as a list of rows and finds max from top to bottom
-def max_sum(triangle):
-    for i in range(1, len(triangle)):
-        for j in range(len(triangle[i])):
-            try:
-                triangle[i][j]+=max(triangle[i-1][j], triangle[i-1][j-1])
-            except:
-                triangle[i][j]+=triangle[i-1][j-1]
-    return max(triangle[-1])
+#Receives the triangle as a matrix and find the max from bottom to top
+def max_sum(matrix):
+    rows=len(matrix)-1
 
-triangle="""
+    #Partial sums of greatest total. Start with last row
+    paths=[[i for i in matrix[rows]]]
+
+    #Index for paths
+    k=0
+
+#Start at the second from last column
+    for i in range(rows-1, -1, -1):
+        paths.append([])
+        k+=1
+
+        #Element of each row
+        for j in range(len(matrix[i])):
+            pmax=matrix[i][j]+max(paths[k-1][j], paths[k-1][j+1])
+            paths[k].append(pmax)
+    
+    return paths[-1][0]
+
+triangle=""" 
 75
 95 64
 17 47 82
@@ -62,13 +74,10 @@ triangle="""
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 """
 
-#Turn triangle into a list of rows
-w=triangle.strip().split('\n')
-t=[]
-for x in w:
-    t.append([])
-    y=x.split()
-    for z in y:
-        t[-1].append(int(z))
+if __name__ == "__main__":
+    matrix=[[int(element) for element in row.split()] for row in triangle.strip().split('\n')]
 
-print(max_sum(t))
+    print(max_sum(matrix))
+
+
+

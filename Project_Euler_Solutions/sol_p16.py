@@ -8,8 +8,13 @@ What is the sum of the digits of the number 2^1000?
 def sum_digits(n):
     s=str(2**n)
     solution=0
+
+    #Sum digits
     for i in s:
         solution+=int(i)
     return solution
 
-print(sum_digits(1000))
+#Parameters
+n=1000
+
+print(sum_digits(n))

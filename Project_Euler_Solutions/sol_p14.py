@@ -17,22 +17,39 @@ Which starting number, under one million, produces the longest chain?
 NOTE: Once the chain starts the terms are allowed to go above one million.
 '''
 
+# Function to compute the length of the Collatz sequence for a given starting number
+def collatz_chain_length(n, memo):
+    if n in memo:
+        return memo[n]
+    if n == 1:
+        return 1
+    if n % 2 == 0:
+        next_n = n // 2
+    else:
+        next_n = 3 * n + 1
+    
+    #Recursively calculate collatz length
+    memo[n] = 1 + collatz_chain_length(next_n, memo)
+    return memo[n]
+
 #Calculates number under n with largest Collatz chain
 def longest_collatz(n):
-    longest=0
+    numbers={}
     max_count=0
-    for i in range(1, n):
-        counter=0
-        x=i
-        while x!=1:
-            if x%2==0:
-                x=x//2
-            else:
-                x=3*x+1
-            counter+=1
-        if counter>max_count:
-            longest=i
-            max_count=counter
-    return longest
+    num=0
 
-print(longest_collatz(1000000))
+    #Numbers
+    for i in range(1, n+1):
+        count=collatz_chain_length(i, numbers)
+        
+        #Collatz lenght
+        if count>max_count:
+            max_count=count
+            num=i
+
+    return num, max_count
+
+#Parameters
+n=10**6
+
+print(longest_collatz(n))

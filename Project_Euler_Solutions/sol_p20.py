@@ -7,14 +7,20 @@ and the sum of the digits in the number 10! is
 
 Find the sum of the digits in the number 100!
 '''
-import math
 
 #Sum the digits of n!
 def sum_fact(n):
-  s=str(math.factorial(n))
-  sol=0
-  for i in s:
-    sol+=int(i)
-  return sol
+    fact=1
+    for i in range(1, n+1):
+        fact*=i
+
+        #Eliminate the 0s
+        while str(fact)[-1]=='0':
+            fact=int(str(fact)[:-1])
+    sol=0
+    for i in str(fact):
+        sol+=int(i)
+
+    return sol
 
 print(sum_fact(100))

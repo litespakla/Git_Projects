@@ -19,23 +19,34 @@ the twentieth century (1 Jan 1901 to 31 Dec 2000)?
 #Counts number of Sundays between a year and an end year.
 #Start is 1 Jan of the given year (0 for Sun, 1 for Mon, 2 for Tues, etc)
 def count_sunday(year, end, start):
-    n_leap=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    leap=[31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    count=0
-    while year<end:
-        if year%4==0 and year%400!=0:
-            for n in leap:
-                start+=n
-                start=start%7
-                if start==0:
-                    count+=1
-        else:
-            for n in n_leap:
-                start+=n
-                start=start%7
-                if start==0:
-                    count+=1
-        year+=1
-    return count
+    months=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    count_days=[0]*7
 
-print(count_sunday(1900, 2000, 1))
+    #First month
+    #count_days[start]+=1
+
+    #Go through every year
+    while year<=end:
+        #print(year)
+        
+        #Check if leap year
+        if year%4==0 and (year%100!=0 or year%400==0):
+            months[1]=29
+        else:
+            months[1]=28
+
+        #Rest of the months
+        for days in months:
+            count_days[start]+=1
+            #print(start)
+            start=(start+days)%7
+        
+        year+=1
+    
+    return count_days
+
+#Whe need 1st of january of 1901
+#print(count_sunday(1900, 1901, 1))
+
+print(count_sunday(1901, 2000, 2))
+
