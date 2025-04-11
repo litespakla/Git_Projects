@@ -12,29 +12,27 @@ So, COLIN would obtain a score of 938 × 53 = 49714.
 What is the total of all the name scores in the file?
 '''
 
-#Get total of all the name scores in  a list of names
+#Get total of all the name scores in  a list of names (all in upper case)
 def name_scores(name_list):
-    ans=0
-    count=1
+    sol=0
+    i=1
     for name in sorted(name_list):
         for l in name:
-            ans+=count*(ord(l) - ord('A') + 1)
-        count+=1
-    return ans
+            sol+=i*(ord(l) - ord('A') + 1)
+        i+=1
+    return sol
 
 #Name of file that contains the names
 name='p022_names.txt'
 
-#Opens file
-file= open(name, 'r')
-
 #List of names in the file
 names=[]
 
-#Create a list with names
-for line in file:
-    row=line.split(',')
-    for n in row:
-        names.append(n.replace('"', ''))
+#Opens file
+with open(name, 'r') as file:
+    for line in file:
+        row=line.split(',')
+        for n in row:
+            names.append(n.replace('"', ''))
 
 print(name_scores(names))

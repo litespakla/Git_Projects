@@ -56,6 +56,7 @@ def max_sum(matrix):
     
     return paths[-1][0]
 
+#Parameters
 triangle=""" 
 75
 95 64

@@ -45,8 +45,13 @@ def count_sunday(year, end, start):
     
     return count_days
 
-#Whe need 1st of january of 1901
-#print(count_sunday(1900, 1901, 1))
+#Parameters
+start=1900
+end=2000
+first_jan=1
 
-print(count_sunday(1901, 2000, 2))
+#Whe need 1st of january of 1901
+#print(count_sunday(start, stat+1, first_jan))
+
+print(count_sunday(start+1, end, 2))
 

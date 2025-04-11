@@ -21,5 +21,8 @@ def lexicographic(digits, permutation):
         ans+=str(i)
     return ans
 
+#Parameters
 d=[0, 1, 2, 3, 4, 5, 6, 7 ,8 ,9]
-print(lexicographic(d, 1000000))
+pos=1000000
+
+print(lexicographic(d, pos))

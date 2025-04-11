@@ -23,4 +23,7 @@ def sum_fact(n):
 
     return sol
 
-print(sum_fact(100))
+#Parameters
+number=100
+
+print(sum_fact(number))

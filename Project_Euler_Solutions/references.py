@@ -72,6 +72,15 @@ def get_primes_below_n(n):
                 is_prime[j] = False
     return primes
 
+#Find all divisors of n
+def find_divisors(n):
+    divisors = []
+    for i in range(1, int(n ** 0.5) + 1):
+        if n % i == 0:
+            divisors.append(i)
+            divisors.append(n // i)
+    return list(set(divisors))
+
 ###################################################3
 
 #Check if number is prime
@@ -97,14 +106,7 @@ def get_subset_indices(lst):
             subsets.append(subsets[j] + [i])
     return subsets
 
-#Find all divisors of n
-def find_divisors(n):
-    divisors = []
-    for i in range(1, int(n ** 0.5) + 1):
-        if n % i == 0:
-            divisors.append(i)
-            divisors.append(n // i)
-    return list(set(divisors))
+
 
 
  
